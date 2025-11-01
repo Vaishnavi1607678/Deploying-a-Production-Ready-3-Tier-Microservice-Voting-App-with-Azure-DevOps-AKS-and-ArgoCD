@@ -144,7 +144,7 @@ c. &gt; **Import the Git Repo to Azure Repo:** On the left menu pane, click on `
 
 When this is done and successfully imported, we should see our entire Repo now.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*HcH4RiTa9liGFH1pMamRbQ.png)
+
 
 ## **Step 3. Create an Azure Container Registry**
 
@@ -502,7 +502,6 @@ check connection
 
 `k8s-specifications` is our Azure repo folder where all our kubernetes manifest files are located, We want argoCD to deploy and monitor this folder for us
 
-![](https://miro.medium.com/v2/resize:fit:700/1*TVZpbnaaPh2wIMHitnAfDQ.png)
 
 From argoCD we can confirm if all the pods are running
 
@@ -519,8 +518,6 @@ This a crucial step to our CICD project, in the CD (Continuous Delivery) stage w
 Now, in order to automate the CI stage with the CD stage, we will be making use of BASH Script. This `bash` script will monitor the ACR for any changes, when there is a new CI build and push it will detect the change and help us update this change to the Azure Repo *(Remember, argoCD is already monitoring the Azure repo)*
 
 a.&gt; Add the script to the `vote-service` folder within the repo
-
-![](https://miro.medium.com/v2/resize:fit:700/1*ITgC3-NhlqhhvFrEGyKXHQ.png)
 
 the script
 
@@ -558,8 +555,6 @@ rm -rf /tmp/temp_repo
 This Bash script automates cloning a Git repository, updating a Kubernetes deployment’s Docker image tag, committing the changes, and pushing them back to the repository; it takes three parameters: `$1` (deployment file prefix which is `vote`), `$2` (image name), and `$3` (new image tag).
 
 what will happen here is the script will detect the new image inside the container registry using its image tag*.****(every new build generates a new image tag for that build)***
-
-![](https://miro.medium.com/v2/resize:fit:700/1*T35nwvmht5ZkCkGOQnrnrg.png)
 
 when this is done it updates the k8s-manifest deployment file with the new image and new tag &gt; argocd detects the changes and deploys it to AKS &gt; this way we can have a new version of the app whenever a change is made
 
